@@ -17,7 +17,7 @@ import VideoUtil
 output=Path('storyprompt.txt').read_text(encoding="utf-8")
 VoiceUtil.getVoiceList()
 paragraphs=output.split('\n')
-path="output\\" + output[:10].replace(":","_").replace(" ","_") +"_" + datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
+path="output\\" + output[:10].replace(":","_").replace(" ","_").replace("\n","_") +"_" + datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 os.mkdir(path)
 filename = "Gen_" + datetime.now().strftime("%m_%d_%Y%H_%M_%S")+ "_.txt"
 with open(path + "\\" + filename, 'w', encoding='utf-8') as outfile:
