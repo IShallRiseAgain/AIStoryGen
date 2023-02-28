@@ -1,2 +1,6 @@
 openaiapikey.txt
+storyprompt.txt
+ElevenLabs.txt
 gptprompt.txt
+output/
+__pycache__/
