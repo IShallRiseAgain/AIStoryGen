@@ -9,7 +9,7 @@ Uses ChatGPT, TTS, and Stable Diffusion (AUTOMATIC1111) to automatically generat
 ## Installation and Running
 Installation process is still a bit messy. 
 - Make sure  Automatic1111 API is enabled and that its running
-- create openaiapikey.txt, with gpt key, ElevenLabs.txt with api key (if you want to use it)
+- copy config.example.json, rename it to config.json and add your keys
 - Run GenerateVideoFromGPT.py if you want to generate using a GPT prompt in gptprompt.txt
 - Run GenerateVideoFromText.py if you want to generate using existing text
 
