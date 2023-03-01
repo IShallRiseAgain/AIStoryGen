@@ -6,7 +6,7 @@ import gender_guesser.detector as gender
 
 with open('ElevenLabs.txt', 'r') as infile:
     apiKey = infile.read()
-enable_elevenAI=False
+enable_elevenAI=True
 availableMaleVoices ={}
 availableFemaleVoices = {}
 narratorVoice="Josh"
