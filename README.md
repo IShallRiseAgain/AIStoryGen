@@ -5,6 +5,7 @@ Uses GPT, TTS, and Stable Diffusion (AUTOMATIC1111) to automatically generate vi
 - Uses the AUTOMATIC1111 API to generate images based on the text of the story
 - Adds subtitles to images
 - Currently supports pyttsx3 or ElevenLabs AI to generate audio
+- Will automatically detect speaker (if text is in transcript format)
 - Combines generated audio and images using FFMPEG to create a video 
 ## Installation and Running
 - Make sure  Automatic1111 API is enabled and that its running
