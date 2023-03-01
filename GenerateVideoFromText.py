@@ -13,9 +13,11 @@ import win32api
 import ImageUtil
 import VoiceUtil
 import VideoUtil
-    
+
+with open('config.json', 'r') as f:
+    config = json.load(f)    
 output=Path('storyprompt.txt').read_text(encoding="utf-8")
-VoiceUtil.getVoiceList()
+VoiceUtil.setup(config)
 paragraphs=output.split('\n')
 path="output\\" + output[:10].replace(":","_").replace(" ","_").replace("\n","_") +"_" + datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 os.mkdir(path)
@@ -28,14 +30,9 @@ audioFiles=[]
 for para in paragraphs:
     if para.strip():
         print(para + "\n")
-        imagepath=ImageUtil.generate_image(para, ind, path)
+        imagepath=ImageUtil.generate_image(para, ind, path, config)
         imageFiles.append(imagepath)
+        voicepath=VoiceUtil.create_dialogue(para, path, ind, config)
+        audioFiles.append(voicepath)        
         ind=ind+1
-        line=para.split(":",maxsplit=1)
-        result = VoiceUtil.create_dialogue(line, para)
-        if VoiceUtil.enable_elevenAI:
-            voicepath=VoiceUtil.generate_voice_ElevenAI(path, ind, result[0], result[1])
-        else:
-            voicepath=VoiceUtil.generate_voice_pyttsx3(path, ind, result[0])
-        audioFiles.append(voicepath)
 VideoUtil.combine_videos(path, imageFiles, audioFiles)            

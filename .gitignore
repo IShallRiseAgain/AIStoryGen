@@ -1,6 +1,5 @@
-openaiapikey.txt
 storyprompt.txt
-ElevenLabs.txt
 gptprompt.txt
+config.json
 output/
 __pycache__/

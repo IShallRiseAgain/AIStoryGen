@@ -1,0 +1,23 @@
+{
+	"prompt": ", RAW Photo,  sharp, detailed, 256k film still from a color movie made in 1980, good lighting, good photography, sharp focus, movie still, film grain",
+	"negative_prompt": "blurry, frame, topless",
+	"image_width": 704,
+	"image_height": 512,
+	"sampler_index": "DPM++ SDE Karras",
+	"steps": 60,
+	"open_ai_key": "<Your Key Here>",
+	"elevenlabs_key": "<Your Key Here>",
+	"voice_type": "ElevenLabs",
+	"voice_gender": 
+	{
+		"domi":"female"
+	},
+	"voice_exclude": ["sam", "worf", "picard", "Ainz"],
+	"character_mappings":
+	{
+		"Josh":["host"]
+	},
+	"upscale_enabled": "True",
+	"upscaler_1" : "Lanczos",
+	"upscaling_resize": 2 
+}

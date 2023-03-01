@@ -4,6 +4,7 @@ import io
 import base64
 import textwrap
 
+upscale=False
 def add_subtitles(image, text, fontsize):
     # Create an ImageDraw object and set the font and size
     draw = ImageDraw.Draw(image)
@@ -26,29 +27,31 @@ def add_subtitles(image, text, fontsize):
         text_y += line_height
     return image
 
-def generate_image(para, ind, path):
+def generate_image(para, ind, path, config):
         payload = {
-            "prompt": para + ", RAW Photo,  sharp, detailed, 256k film still from a color movie made in 1980, good lighting, good photography, sharp focus, movie still, film grain",
-            "negative_prompt": "blurry, frame, topless",
-            "steps": 60,
-            "width": 704,
-            "sampler_index": "DPM++ SDE Karras"
+            "prompt": para + config["prompt"],
+            "negative_prompt": config["negative_prompt"],
+            "steps": config["steps"],
+            "width": config["image_width"],
+            "height": config["image_height"],
+            "sampler_index": config["sampler_index"]
         }
         r = requests.post(url=f'http://127.0.0.1:7860/sdapi/v1/txt2img', json=payload).json()
         for i in r['images']:
             image = Image.open(io.BytesIO(base64.b64decode(i.split(",",1)[0])))
             imagepath=path + "\\" + "image_" + str(ind)  + '.png'
-            image=upscale_image(image,2, "Lanczos")
+            if config["upscale_enabled"]:
+                image=upscale_image(image,config)
             image=add_subtitles(image, para, 40)    
             image.save(imagepath)
             return imagepath
 
-def upscale_image(image, scale, upscaler):        
+def upscale_image(image, config):        
     with io.BytesIO() as buffer:
         image.save(buffer, format='PNG')
         payload = {
-            "upscaling_resize": scale,
-            "upscaler_1": upscaler,
+            "upscaling_resize": config["upscaling_resize"],
+            "upscaler_1": config["upscaler_1"],
             "image": base64.b64encode(buffer.getvalue()).decode('utf-8')
         }
         r = requests.post(url=f'http://127.0.0.1:7860/sdapi/v1/extra-single-image', json=payload).json()
