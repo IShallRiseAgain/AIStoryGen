@@ -15,15 +15,16 @@ import VoiceUtil
 import TextGenUtil
 import VideoUtil
 
+with open('config.json', 'r') as f:
+    config = json.load(f)   
 prompt = Path('gptprompt.txt').read_text(encoding="utf-8")
-output = TextGenUtil.gpt3_completion(prompt)
-VoiceUtil.getVoiceList()
+output = TextGenUtil.generateText(prompt, config)
+VoiceUtil.setup(config)
 paragraphs=output.split('\n')
 path="output\\" + output[:10].replace(":","_").replace(" ","_").replace("\n","_") +"_" + datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
 os.mkdir(path)
 filename = "Gen_" + datetime.now().strftime("%m_%d_%Y%H_%M_%S")+ "_.txt"
 with open(path + "\\" + filename, 'w', encoding='utf-8') as outfile:
-        outfile.write(prompt + "\n")
         outfile.write(output)
 ind=0
 imageFiles=[]
@@ -31,15 +32,9 @@ audioFiles=[]
 for para in paragraphs:
     if para.strip():
         print(para + "\n")
-        imagepath=ImageUtil.generate_image(para, ind, path, 1024, 768)
+        imagepath=ImageUtil.generate_image(para, ind, path, config)
         imageFiles.append(imagepath)
+        voicepath=VoiceUtil.create_dialogue(para, path, ind, config)
+        audioFiles.append(voicepath)        
         ind=ind+1
-        line=para.split(":",maxsplit=1)
-        result = VoiceUtil.create_dialogue(line, para)
-        if config["voice_type"]:
-            voicepath=VoiceUtil.generate_voice_ElevenAI(path, ind, result[0], result[1])
-            audioFiles.append(voicepath)
-        else:
-            voicepath=VoiceUtil.generate_voice_pyttsx3(path, ind, result[0])
-            audioFiles.append(voicepath)
-VideoUtil.combine_videos(path, imageFiles, audioFiles)             
+VideoUtil.combine_videos(path, imageFiles, audioFiles)            

@@ -3,7 +3,7 @@ import requests
 import random
 import pyttsx3
 import gender_guesser.detector as gender
-
+import re
 
 apiKey = ""
 availableMaleVoices ={}
@@ -51,8 +51,11 @@ def create_dialogue(text, path, ind, config):
     curVoice="None"
     line=text.split(":",maxsplit=1)
     if(len(line)>1):
-        dialogue=line[1]
+        dialogue=line[1]        
         if config["voice_type"]=="ElevenLabs":
+            #Don't voice bracketed text
+            pattern = r'\[.*?\]'
+            dialogue= re.sub(pattern, '', dialogue)
             if line[0].lower() in voices:
                 curvoice=voices[line[0].lower()]
             else:
