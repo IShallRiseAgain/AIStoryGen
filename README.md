@@ -7,7 +7,6 @@ Uses GPT, TTS, and Stable Diffusion (AUTOMATIC1111) to automatically generate vi
 - Currently supports pyttsx3 or ElevenLabs AI to generate audio
 - Combines generated audio and images using FFMPEG to create a video 
 ## Installation and Running
-Installation process is still a bit messy. 
 - Make sure  Automatic1111 API is enabled and that its running
 - copy config.example.json, rename it to config.json and add your keys
 - Run GenerateVideoFromGPT.py if you want to generate using a GPT prompt in gptprompt.txt
