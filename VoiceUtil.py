@@ -4,8 +4,8 @@ import random
 import pyttsx3
 
 with open('ElevenLabs.txt', 'r') as infile:
-    apikey = infile.read()
-enable_elevenAI=False
+    apiKey = infile.read()
+enable_elevenAI=True
 availableVoices ={}
 narratorVoice="Josh"
 narratorName="narrator"
@@ -31,7 +31,7 @@ def create_dialogue(line, text):
             key = random.choice(list(availableVoices.keys())) 
             curvoice=voices[line[0]]= availableVoices[key]
             availableVoices.pop(key)
-        return [text, curvoice]   
+        return [dialogue, curvoice]   
         
     else:
         if narratorName in voices:

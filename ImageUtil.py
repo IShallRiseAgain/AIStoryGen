@@ -31,6 +31,7 @@ def generate_image(para, ind, path):
             "prompt": para + ", RAW Photo,  sharp, detailed, 256k film still from a color movie made in 1980, good lighting, good photography, sharp focus, movie still, film grain",
             "negative_prompt": "blurry, frame, topless",
             "steps": 60,
+            "width": 704,
             "sampler_index": "DPM++ SDE Karras"
         }
         r = requests.post(url=f'http://127.0.0.1:7860/sdapi/v1/txt2img', json=payload).json()
