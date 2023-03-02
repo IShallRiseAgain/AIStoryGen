@@ -13,6 +13,6 @@ Uses GPT, TTS, and Stable Diffusion (AUTOMATIC1111) to automatically generate vi
 - Run GenerateVideoFromGPT.py if you want to generate using a GPT prompt in gptprompt.txt
 - Run GenerateVideoFromText.py if you want to generate using existing text
 
-Here is an example output:
-https://www.youtube.com/watch?v=lm_peWz93a4
+[Here is an example output:](https://www.youtube.com/watch?v=lm_peWz93a4)
+
 This is still in development. I'm still not sure how I want to implement the UI.
