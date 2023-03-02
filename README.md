@@ -14,6 +14,6 @@ Uses GPT, TTS, and Stable Diffusion (AUTOMATIC1111) to automatically generate vi
 - Run GenerateVideoFromText.py if you want to generate using existing text
 
 Here is an example output:
-[![example](https://img.youtube.com/vi/lm_peWz93a4/maxresdefault.jpg)]([https://youtu.be/T-D1KVIuvjA](https://www.youtube.com/watch?v=lm_peWz93a4))
+[![example](https://img.youtube.com/vi/lm_peWz93a4/maxresdefault.jpg)](https://www.youtube.com/watch?v=lm_peWz93a4)
 
 This is still in development. I'm still not sure how I want to implement the UI.
