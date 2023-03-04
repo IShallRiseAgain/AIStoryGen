@@ -24,11 +24,10 @@ def setup(config):
         for item in response["voices"]:
                 if item["name"].lower() in config["voice_exclude"]:
                     continue
-                if item["name"].lower() in config["character_mappings"].keys():
-                    for c in config["character_mappings"]:
-                        for m in config["character_mappings"][item["name"].lower()]: 
-                            voices[m]=item["voice_id"]
-                if item["name"].lower() in voiceGender.keys():
+                elif item["name"].lower() in config["character_mappings"].keys():
+                    for m in config["character_mappings"][item["name"].lower()]:
+                        voices[m]=item["voice_id"]
+                elif item["name"].lower() in voiceGender.keys():
                     if voiceGender[item["name"].lower()] == "female":
                         availableFemaleVoices[item["name"].lower()]=item["voice_id"]
                     else:
@@ -75,7 +74,7 @@ def create_dialogue(text, path, ind, config):
                         availableMaleVoices.pop(key)
                     else:
                         curvoice=voices[line[0].lower()]=random.choice(list(voices.values()))
-            return generate_voice_ElevenAI(path, ind, dialogue, curvoice, config["elevenlabs_key"])
+            return generate_voice_ElevenAI(path, ind, dialogue, curvoice, config["elevenlabs_key"])      
         else:
             return generate_voice_pyttsx3(path, ind, dialogue)
         
