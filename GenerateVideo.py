@@ -11,6 +11,7 @@ import os
 import ImageUtil
 import VoiceUtil
 import VideoUtil
+import SubtitleUtil
 
 def LoadConfig(text):    
     with open('config.json', 'r') as f:
@@ -33,11 +34,11 @@ def BackupText(text, config):
     os.mkdir(path)
     filename = "Gen_" + datetime.now().strftime("%m_%d_%Y%H_%M_%S")+ "_.txt"
     with open(path + "\\" + filename, 'w', encoding='utf-8') as outfile:
-            if "prompt" in config.keys():
-                outfile.write(config["prompt"] + "\n")
+            if "text_prompt" in config.keys():
+                outfile.write(config["text_prompt"] + "\n")
             outfile.write(text + "\n")
     return path
-
+   
 def Generate(text, config):
     VoiceUtil.setup(config)
     ind=0
@@ -45,12 +46,16 @@ def Generate(text, config):
     audioFiles=[]
     path=BackupText(text, config)
     paragraphs = config["paragraphs"]
+    subtitle=["",0]
     for para in paragraphs:
         if para.strip():
             print(para + "\n")
             imagepath=ImageUtil.generate_image(para, ind, path, config)
             imageFiles.append(imagepath)
             voicepath=VoiceUtil.create_dialogue(para, path, ind, config)
-            audioFiles.append(voicepath)        
+            audioFiles.append(voicepath)
+            subtitle= SubtitleUtil.updateSubtitle(subtitle, voicepath, para, ind)
             ind=ind+1
+    with open(path + "\\" + "final.srt", 'w', encoding='utf-8') as outfile:
+        outfile.write(subtitle[0])
     VideoUtil.combine_videos(path, imageFiles, audioFiles, config)            

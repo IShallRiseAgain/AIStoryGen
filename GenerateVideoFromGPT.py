@@ -18,7 +18,10 @@ import GenerateVideo
 
 prompt = Path('gptprompt.txt').read_text(encoding="utf-8")
 config = GenerateVideo.LoadConfig(prompt)
-prompt=config["paragraphs"][0]
+if config["paragraphs"]:
+    prompt=config["paragraphs"][0]
+else:
+    prompt=""
 if "text_prompt_prefix" in config.keys():
     prompt=config["text_prompt_prefix"] + prompt
 if "text_prompt_suffix" in config.keys():
@@ -26,6 +29,6 @@ if "text_prompt_suffix" in config.keys():
 print("generating text with prompt: " + prompt)
 text = TextGenUtil.generateText(prompt, config)
 config["paragraphs"]=text.split('\n')
-config["prompt"]=prompt
+config["text_prompt"]=prompt
 GenerateVideo.Generate(text,config)
     
