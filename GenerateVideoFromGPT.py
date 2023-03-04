@@ -14,27 +14,18 @@ import ImageUtil
 import VoiceUtil
 import TextGenUtil
 import VideoUtil
+import GenerateVideo
 
-with open('config.json', 'r') as f:
-    config = json.load(f)   
 prompt = Path('gptprompt.txt').read_text(encoding="utf-8")
-output = TextGenUtil.generateText(prompt, config)
-VoiceUtil.setup(config)
-paragraphs=output.split('\n')
-path="output\\" + output[:10].replace(":","_").replace(" ","_").replace("\n","_") +"_" + datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
-os.mkdir(path)
-filename = "Gen_" + datetime.now().strftime("%m_%d_%Y%H_%M_%S")+ "_.txt"
-with open(path + "\\" + filename, 'w', encoding='utf-8') as outfile:
-        outfile.write(output)
-ind=0
-imageFiles=[]
-audioFiles=[]
-for para in paragraphs:
-    if para.strip():
-        print(para + "\n")
-        imagepath=ImageUtil.generate_image(para, ind, path, config)
-        imageFiles.append(imagepath)
-        voicepath=VoiceUtil.create_dialogue(para, path, ind, config)
-        audioFiles.append(voicepath)        
-        ind=ind+1
-VideoUtil.combine_videos(path, imageFiles, audioFiles)            
+config = GenerateVideo.LoadConfig(prompt)
+prompt=config["paragraphs"][0]
+if "text_prompt_prefix" in config.keys():
+    prompt=config["text_prompt_prefix"] + prompt
+if "text_prompt_suffix" in config.keys():
+    prompt=prompt + config["text_prompt_suffix"]
+print("generating text with prompt: " + prompt)
+text = TextGenUtil.generateText(prompt, config)
+config["paragraphs"]=text.split('\n')
+config["prompt"]=prompt
+GenerateVideo.Generate(text,config)
+    

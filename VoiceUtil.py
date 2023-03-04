@@ -26,7 +26,8 @@ def setup(config):
                     continue
                 if item["name"].lower() in config["character_mappings"].keys():
                     for c in config["character_mappings"]:
-                        voices[c]=item["voice_id"]
+                        for m in config["character_mappings"][item["name"].lower()]: 
+                            voices[m]=item["voice_id"]
                 if item["name"].lower() in voiceGender.keys():
                     if voiceGender[item["name"].lower()] == "female":
                         availableFemaleVoices[item["name"].lower()]=item["voice_id"]
@@ -54,7 +55,7 @@ def create_dialogue(text, path, ind, config):
         dialogue=line[1]        
         if config["voice_type"]=="ElevenLabs":
             #Don't voice bracketed text
-            pattern = r'\[.*?\]'
+            pattern = r"[\(\[].*?[\)\]]"
             dialogue= re.sub(pattern, '', dialogue)
             if line[0].lower() in voices:
                 curvoice=voices[line[0].lower()]

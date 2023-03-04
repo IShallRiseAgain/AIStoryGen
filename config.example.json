@@ -1,23 +1,55 @@
 {
-	"prompt": ", RAW Photo,  sharp, detailed, 256k film still from a color movie made in 1980, good lighting, good photography, sharp focus, movie still, film grain",
+	"prompt": ", RAW Photo, sharp, detailed, 256k film still from a color movie made in 1980, good lighting, good photography, sharp focus, movie still, film grain",
 	"negative_prompt": "blurry, frame, topless",
 	"image_width": 704,
 	"image_height": 512,
 	"sampler_index": "DPM++ SDE Karras",
 	"steps": 60,
-	"open_ai_key": "<Your Key Here>",
-	"elevenlabs_key": "<Your Key Here>",
-	"voice_type": "ElevenLabs",
+	"open_ai_key": "<YOUR KEY HERE>",
+	"chatgpt_api": "True",
+	"elevenlabs_key": "<YOUR KEY HERE>",
+	"voice_type": "default",
+	"music_genre": "folk",
+	"music_volume": "0.5",
 	"voice_gender": 
 	{
 		"domi":"female"
 	},
-	"voice_exclude": ["sam", "worf", "picard", "Ainz"],
+	"voice_exclude": ["sam", "worf", "picard"],
 	"character_mappings":
 	{
 		"Josh":["host"]
 	},
 	"upscale_enabled": "True",
 	"upscaler_1" : "Lanczos",
-	"upscaling_resize": 2 
+	"upscaling_resize": 2,
+	"text_prompt_prefix":"",
+	"text_prompt_suffix":"",
+	"styles":
+	{
+		"antiques":{
+			"music_genre": "myuu_dark_ambient",
+			"text_prompt_prefix":"write a transcript of an episode of a show called \"Antiques and appraisals\".",
+			"character_mappings":
+			{
+				"antoni":["host"]
+			}
+		},
+		"star":{
+			"text_prompt_prefix":"write a transcript of an episode of Star Trek the Next Generation",
+			"prompt": ", RAW Photo, sharp, detailed, 256k  sci-fi film still from a color movie made in 1990, good lighting, good photography, sharp focus, movie still, film grain, startrekthenextgeneration",
+			"negative_prompt": "blurry, frame, topless, cartoon",
+			"voice_exclude": ["sam"],
+			"character_mappings":
+			{
+				"antoni":["narrator"],
+				"worf":["worf"],
+				"picard":["picard"],
+				"data":["data"],
+				"geordi":["geordi"],
+				"riker":["riker"]
+				
+			}
+		}
+	}
 }
