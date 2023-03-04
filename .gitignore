@@ -2,4 +2,5 @@ storyprompt.txt
 gptprompt.txt
 config.json
 output/
+music/
 __pycache__/
