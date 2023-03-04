@@ -13,6 +13,9 @@ Uses GPT, TTS, and Stable Diffusion (AUTOMATIC1111) to automatically generate vi
 - Run GenerateVideoFromGPT.py if you want to generate using a GPT prompt in gptprompt.txt
 - Run GenerateVideoFromText.py if you want to generate using existing text
 
+## Using Styles
+you can define styles in config.json. Styles will override the default settings in config.json if you use them. In order to use them put all the styles you want to use on the first line between "!", seperated by ","
+
 Here is an example output:
 [![example](https://img.youtube.com/vi/lm_peWz93a4/maxresdefault.jpg)](https://www.youtube.com/watch?v=lm_peWz93a4)
 
