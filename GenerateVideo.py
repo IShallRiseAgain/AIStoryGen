@@ -31,7 +31,7 @@ def LoadConfig(text):
 
 def BackupText(text, config):
     path="output\\" + text[:10].replace(":","_").replace(" ","_").replace("\n","_") +"_" + datetime.now().strftime("%m_%d_%Y_%H_%M_%S")
-    os.mkdir(path)
+    os.makedirs(path)
     filename = "Gen_" + datetime.now().strftime("%m_%d_%Y%H_%M_%S")+ "_.txt"
     with open(path + "\\" + filename, 'w', encoding='utf-8') as outfile:
             if "text_prompt" in config.keys():
